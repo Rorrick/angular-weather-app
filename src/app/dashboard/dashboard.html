@@ -1,0 +1,24 @@
+<ng-container *ngIf="weatherData as w">
+  <section class="dashboard-header">
+    <h2>🌤️ Current Weather</h2>
+  </section>
+
+  <mat-card class="weather-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title-group>
+        <img class="weather-icon"
+             [src]="'https://openweathermap.org/img/wn/' + w.weather[0].icon + '@2x.png'"
+             alt="Weather icon" />
+        <mat-card-title>Weather in {{ w.name }}</mat-card-title>
+        <mat-card-subtitle>{{ w.weather[0].main }}</mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p><strong>Temperature:</strong> {{ w.main.temp }}°C</p>
+      <p><strong>Condition:</strong> {{ w.weather[0].description }}</p>
+      <p><strong>Humidity:</strong> {{ w.main.humidity }}%</p>
+      <p><strong>Wind Speed:</strong> {{ w.wind.speed }} m/s</p>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
