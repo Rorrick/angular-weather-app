@@ -1,0 +1,28 @@
+.search-form-field {
+  width: 100%;
+  max-width: 520px;
+  margin: var(--space-4) auto var(--space-5);
+  margin-left: 20px; /* shifts the whole form field to the right */
+}
+
+
+/* Apply pill radius to the entire text field wrapper */
+::ng-deep .mat-mdc-text-field-wrapper {
+  border-radius: 9999px !important;
+  overflow: hidden; /* ensures the outline follows the radius */
+}
+
+/* Ensure the outline segments respect the radius */
+::ng-deep .mat-mdc-form-field-appearance-outline .mdc-notched-outline {
+  border-radius: 9999px !important;
+}
+
+/* Optional: adjust padding so text doesn’t look cramped */
+::ng-deep .mat-mdc-form-field-infix {
+  padding: 10px 16px !important;
+}
+
+/* Add extra left padding to push text right */
+::ng-deep .mat-mdc-input-element {
+  padding-left: 20px !important; /* adjust value as needed */
+}

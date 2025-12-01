@@ -1,0 +1,7 @@
+<mat-form-field appearance="outline" class="search-form-field">
+  <mat-label>Enter city</mat-label>
+  <input matInput type="text" [formControl]="searchControl" (keyup.enter)="onSearch()">
+  <button matSuffix mat-icon-button (click)="clearInput()" *ngIf="searchControl.value">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>

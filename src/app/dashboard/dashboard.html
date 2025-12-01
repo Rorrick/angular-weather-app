@@ -22,3 +22,15 @@
     </mat-card-content>
   </mat-card>
 </ng-container>
+<!-- Listen for search here -->
+<app-search-bar (citySearch)="onCitySelected($event)"></app-search-bar>
+
+<!-- Show current weather (keep just one block) -->
+<ng-container *ngIf="weatherData as w">
+  <!-- your existing weather card -->
+</ng-container>
+
+<!-- Tell Forecast which city to show -->
+<app-forecast [city]="city"></app-forecast> <!-- ✅ correct selector -->
+
+

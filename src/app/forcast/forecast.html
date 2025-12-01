@@ -1,0 +1,26 @@
+<ng-container *ngIf="daily?.length; else loading">  <div class="forecast-grid">
+    <mat-card class="day-card" *ngFor="let d of daily">
+      <div class="day-head">
+        <div>{{ d.date | date:'EEE, d MMM' }}</div>
+        <span class="chip">{{ d.condition }}</span>
+      </div>
+
+      <div class="day-body">
+        <img class="weather-icon"
+             [src]="'https://openweathermap.org/img/wn/' + d.icon + '@2x.png'"
+             [alt]="d.description" />
+        <div>
+          <div><strong>Min/Max:</strong> {{ d.min }}° / {{ d.max }}°</div>
+          <div *ngIf="d.rainMm && d.rainMm > 0"><strong>Rain:</strong> {{ d.rainMm }} mm</div>
+          <div><strong>POP:</strong> {{ (d.pop * 100) | number:'1.0-0' }}%</div>
+        </div>
+      </div>
+
+      <div class="day-stats"></div>
+    </mat-card>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <div class="section-title" style="opacity:.6">Loading forecast…</div>
+</ng-template>
