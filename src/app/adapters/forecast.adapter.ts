@@ -1,6 +1,6 @@
 import { ForecastDay } from "../models/forecast-day.model";
 
-// src/app/weather/adapters/forecast.adapter.ts
+
 export function toDailySummaries(raw: any): ForecastDay[] {
     if (!raw || !raw.list || !raw.city) return [];
   
@@ -9,7 +9,7 @@ export function toDailySummaries(raw: any): ForecastDay[] {
   
     // Helper: get local date string (YYYY-MM-DD) for each item
     const localDateKey = (dt: number) => {
-      // Shift dt (seconds) by timezone, then take UTC date parts
+      
       const local = new Date((dt + tzOffsetSec) * 1000);
       const y = local.getUTCFullYear();
       const m = (local.getUTCMonth() + 1).toString().padStart(2, '0');
@@ -31,7 +31,7 @@ export function toDailySummaries(raw: any): ForecastDay[] {
       let min = Number.POSITIVE_INFINITY;
       let max = Number.NEGATIVE_INFINITY;
   
-      // icon/condition selection: pick the entry closest to 12:00 local
+      
       const targetHour = 12;
       let best: any | null = null;
       let bestDelta = Number.POSITIVE_INFINITY;

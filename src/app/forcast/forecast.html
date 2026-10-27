@@ -10,9 +10,9 @@
              [src]="'https://openweathermap.org/img/wn/' + d.icon + '@2x.png'"
              [alt]="d.description" />
         <div>
-          <div><strong>Min/Max:</strong> {{ d.min }}° / {{ d.max }}°</div>
-          <div *ngIf="d.rainMm && d.rainMm > 0"><strong>Rain:</strong> {{ d.rainMm }} mm</div>
-          <div><strong>POP:</strong> {{ (d.pop * 100) | number:'1.0-0' }}%</div>
+          <div><strong>Min/Max:</strong> {{ d.min | number:'1.0-0' }}° / {{ d.max | number:'1.0-0' }}°</div>
+          <div *ngIf="d.rainMm && d.rainMm > 0"><strong>Rain:</strong> {{ d.rainMm | number:'1.0-1' }} mm</div>
+          <div><strong>Rain chance:</strong> {{ (d.pop * 100) | number:'1.0-0' }}%</div>
         </div>
       </div>
 
