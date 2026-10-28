@@ -1,0 +1,10 @@
+{
+    "name": "weather-dashboard",
+    "main": "worker/index.js",
+    "compatibility_date": "2026-10-01",
+    "assets": {
+      "directory": "./dist/weather2-app/browser",
+      "not_found_handling": "single-page-application",
+      "run_worker_first": ["/api/*"]
+    }
+  }
