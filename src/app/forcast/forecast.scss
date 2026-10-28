@@ -47,13 +47,46 @@
   gap: 6px;
   padding: 4px 10px;
   border-radius: 9999px;
-  background: rgba(99,102,241,.1);
+  background: #c4b5fd;
   color: var(--primary);
   font-weight: 600;
   font-size: 12px;
 }
 mat-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 18px rgba(0,0,0,.08);
   transition: all .25s ease;
+}
+
+.day-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.temps {
+  font-size: 1.25rem;
+}
+
+.hi {
+  font-weight: 700;
+}
+
+.lo {
+  color: var(--color-text-muted);
+  margin-left: 0.4rem;
+}
+
+.rain {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  max-width: 1120px;
+  margin: 0 auto;
 }

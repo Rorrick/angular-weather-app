@@ -1,13 +1,38 @@
+@use '@angular/material' as mat;
+
+html {
+  color-scheme: dark;
+  @include mat.theme((
+    color: (
+      primary: mat.$violet-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
 :root {
-  --bg: #faf7ff;                 /* soft surface */
-  --card-bg: #ffffff;
-  --text: #1f2937;               /* slate-800 */
-  --muted: #6b7280;              /* slate-500 */
-  --primary: #6366f1;            /* indigo-500 */
-  --border: rgba(0,0,0,.08);
+  /* Same palette as the CV site */
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
+  --color-primary: #7d3cff;
+  --color-accent: #f2d53c;
+  --color-text: #f1f5f9;
+  --color-text-muted: #94a3b8;
+  --color-border: #2e3f5c;
+
+  /* Old names kept, so existing component styles keep working */
+  --bg: var(--color-bg);
+  --card-bg: var(--color-surface);
+  --text: var(--color-text);
+  --muted: var(--color-text-muted);
+  --primary: var(--color-primary);
+  --border: var(--color-border);
+
   --radius-card: 20px;
-  --shadow-sm: 0 2px 12px rgba(0,0,0,.06);
-  --shadow-sm-hover: 0 6px 18px rgba(0,0,0,.08);
+  --shadow-sm: 0 2px 12px rgba(0, 0, 0, .35);
+  --shadow-sm-hover: 0 6px 18px rgba(0, 0, 0, .45);
   --space-1: 6px;
   --space-2: 12px;
   --space-3: 16px;
@@ -18,11 +43,31 @@
 html, body {
   margin: 0;
   height: 100%;
-  background: linear-gradient(180deg, #aee1f9 0%, #fef6ff 100%) !important;
-  color: var(--text);
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
+body {
+  position: relative;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Soft purple glow at the top, like the hero on the CV site */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 45% at 50% 0%, rgba(125, 60, 255, 0.22), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+app-root, .dashboard-wrapper {
+  position: relative;
+  z-index: 1;
+}
 
 .dashboard-wrapper {
   max-width: 1120px;
@@ -39,6 +84,7 @@ html, body {
   font-weight: 700;
   letter-spacing: -0.02em;
   margin: 0 0 var(--space-4) 0;
+  font-size: clamp(28px, 6vw, 40px);
 }
 
 .section-title {
@@ -46,20 +92,22 @@ html, body {
   line-height: 32px;
   font-weight: 600;
   margin: var(--space-5) 0 var(--space-3);
-  color: var(--text);
+  color: var(--color-text);
 }
 
-/* Works with Angular Material cards */
 mat-card {
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  --mat-card-elevated-container-color: #1e293b;
+  --mat-card-outlined-container-color: #1e293b;
+  --mat-card-outlined-outline-color: var(--color-border);
+
+  border: 1px solid var(--color-border);
+  transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
 }
 
 mat-card:hover {
+  border-color: var(--color-primary);
   box-shadow: var(--shadow-sm-hover);
   transform: translateY(-2px);
-  transition: box-shadow .2s ease, transform .2s ease;
 }
 
 mat-card-header, mat-card-content {
@@ -72,46 +120,3 @@ mat-card-header, mat-card-content {
   height: 64px;
   object-fit: contain;
 }
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-  pointer-events: none;
-}
-/* Ensure the gradient wins over the earlier var(--bg) background */
-html, body {
-  margin: 0;
-  height: 100%;
-}
-
-body {
-  /* Sky gradient */
-  background: linear-gradient(180deg, #aee1f9 0%, #fef6ff 100%) !important;
-  position: relative;               /* create stacking context for ::before */
-  min-height: 100dvh;               /* cover full viewport on mobile too */
-  overflow-x: hidden;
-}
-
-/* Subtle top “sun haze” overlay */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0) 60%);
-  pointer-events: none;
-  z-index: 0;                        /* sits behind your content */
-}
-
-/* Make sure your app content sits above the overlay */
-app-root, .dashboard-wrapper {
-  position: relative;
-  z-index: 1;
-}
-
-
-
-
-
-

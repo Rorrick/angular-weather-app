@@ -2,7 +2,6 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { WeatherService } from '../weather_services/weather';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { SearchBar } from '../search-bar/search-bar';
 import { ForecastDay } from '../models/forecast-day.model';
 
 
@@ -15,8 +14,10 @@ import { ForecastDay } from '../models/forecast-day.model';
 })
 export class ForecastComponent {
   @Input() city = 'New York';
-  weatherForecastData: any;
   daily: ForecastDay[] = [];
+  loading = false;
+  error = '';
+
 
   constructor(private forecastService: WeatherService) {}
 
@@ -31,8 +32,19 @@ export class ForecastComponent {
   }
 
   fetchForecastData(city: string): void {
-    this.forecastService.getDailyForecast(city).subscribe(days => {
+    this.loading = true;
+  this.error = '';
+
+  this.forecastService.getDailyForecast(city).subscribe({
+    next: days => {
       this.daily = days;
-    });
+      this.loading = false;
+    },
+    error: () => {
+      this.daily = [];   // don't show an old city's forecast under a new city
+      this.loading = false;
+      this.error = "Couldn't load the forecast. Please try again.";
+    }
+  });
   }
   }

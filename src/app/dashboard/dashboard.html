@@ -1,8 +1,12 @@
-<ng-container *ngIf="weatherData as w">
+
+<div class="dashboard-wrapper">
   <section class="dashboard-header">
-    <h2>🌤️ Current Weather</h2>
+    <h2>🌤️ {{ title| titlecase }}</h2>
   </section>
 
+  <app-search-bar (citySearch)="onCitySelected($event)"></app-search-bar>
+
+  <ng-container *ngIf="weatherData as w">
   <mat-card class="weather-card" appearance="outlined">
     <mat-card-header>
       <mat-card-title-group>
@@ -10,27 +14,33 @@
              [src]="'https://openweathermap.org/img/wn/' + w.weather[0].icon + '@2x.png'"
              alt="Weather icon" />
         <mat-card-title>Weather in {{ w.name }}</mat-card-title>
-        <mat-card-subtitle>{{ w.weather[0].main }}</mat-card-subtitle>
       </mat-card-title-group>
     </mat-card-header>
 
     <mat-card-content>
-      <p><strong>Temperature:</strong> {{ w.main.temp }}°C</p>
-      <p><strong>Condition:</strong> {{ w.weather[0].description }}</p>
-      <p><strong>Humidity:</strong> {{ w.main.humidity }}%</p>
-      <p><strong>Wind Speed:</strong> {{ w.wind.speed }} m/s</p>
+      <div class="temp">{{ w.main.temp | number:'1.0-0' }}°C</div>
+      <div class="condition">{{ w.weather[0].description | titlecase }}</div>
+    
+      <div class="details">
+        <div><span class="label">Humidity</span>{{ w.main.humidity }}%</div>
+        <div><span class="label">Wind</span>{{ w.wind.speed | number:'1.0-1' }} m/s</div>
+      </div>
     </mat-card-content>
   </mat-card>
 </ng-container>
-<!-- Listen for search here -->
-<app-search-bar (citySearch)="onCitySelected($event)"></app-search-bar>
 
-<!-- Show current weather (keep just one block) -->
+<p class="error" *ngIf="error" role="alert">{{ error }}</p>
+<p class="loading" *ngIf="loading">Loading…</p>
+
+</div>
+
+
+
+
 <ng-container *ngIf="weatherData as w">
-  <!-- your existing weather card -->
 </ng-container>
 
 <!-- Tell Forecast which city to show -->
-<app-forecast [city]="city"></app-forecast> <!-- ✅ correct selector -->
+<app-forecast [city]="city"></app-forecast>
 
 
